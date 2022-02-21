@@ -85,32 +85,7 @@ class OldProductTest {
         assertEquals(BigDecimal.ZERO, p.getPrice());
     }
 
-    @Test
-    void canFormatDescription() {
-        //expect
-        assertEquals("short *** long", productWithDesc("short", "long").formatDesc());
-        assertEquals("", productWithDesc("short", "").formatDesc());
-        assertEquals("", productWithDesc("", "long2").formatDesc());
-    }
-
-    @Test
-    void canChangeCharInDescription() {
-        //given
-        OldProduct oldProduct = productWithDesc("short", "long");
-
-        //when
-        oldProduct.replaceCharFromDesc('s', 'z');
-
-        //expect
-        assertEquals("zhort *** long", oldProduct.formatDesc());
-
-    }
-
     OldProduct productWithPriceAndCounter(BigDecimal price, int counter) {
-        return new OldProduct(price, "desc", "longDesc", counter);
-    }
-
-    OldProduct productWithDesc(String desc, String longDesc) {
-        return new OldProduct(BigDecimal.TEN, desc, longDesc, 10);
+        return new OldProduct(price, counter);
     }
 }

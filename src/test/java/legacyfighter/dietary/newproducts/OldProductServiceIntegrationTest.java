@@ -131,7 +131,7 @@ class OldProductServiceIntegrationTest {
     }
 
     OldProduct existingProduct(BigDecimal price, String desc, String longDesc, Integer counter) {
-        return oldProductRepository.save(new OldProduct(price, desc, longDesc, counter));
+        return oldProductRepository.save(new OldProduct(price, counter), new Description(desc, longDesc));
     }
 
 }

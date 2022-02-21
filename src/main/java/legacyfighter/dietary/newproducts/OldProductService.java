@@ -17,18 +17,15 @@ public class OldProductService {
     OldProductRepository oldProductRepository;
 
     public List<String> findAllDescriptions() {
-        return
-                oldProductRepository
-                .findAll()
-                .stream()
-                .map(OldProduct::formatDesc)
+        return oldProductRepository.findAllDescriptions().stream()
+                .map(ProductDescription::formatDesc)
                 .collect(Collectors.toList());
     }
 
     @Transactional
     public void replaceCharInDesc(UUID productId, char oldChar, char newChar) {
-        OldProduct product = oldProductRepository.getOne(productId);
-        product.replaceCharFromDesc(oldChar, newChar);
+        ProductDescription productDescription = oldProductRepository.getOneByProductId(productId);
+        productDescription.replaceCharFromDesc(oldChar, newChar);
     }
 
     @Transactional

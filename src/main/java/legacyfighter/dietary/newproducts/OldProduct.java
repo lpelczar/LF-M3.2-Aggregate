@@ -17,16 +17,12 @@ public class OldProduct {
     private Price price;
 
     @Embedded
-    private Description desc;
-
-    @Embedded
     private Counter counter;
 
     public OldProduct() {}
 
-    public OldProduct(BigDecimal price, String desc, String longDesc, Integer counter) {
+    public OldProduct(BigDecimal price, Integer counter) {
         this.price = Price.of(price);
-        this.desc = new Description(desc, longDesc);
         this.counter = new Counter(counter);
     }
 
@@ -50,14 +46,6 @@ public class OldProduct {
         if (counter.hasAny()) {
             this.price = Price.of(price);
         }
-    }
-
-    void replaceCharFromDesc(char charToReplace, char replaceWith) {
-        desc = desc.replace(charToReplace, replaceWith);
-    }
-
-    String formatDesc() {
-        return desc.formatted();
     }
 
     BigDecimal getPrice() {
@@ -100,37 +88,6 @@ class Price {
 
     BigDecimal getAsBigDecimal() {
         return price;
-    }
-}
-
-@Embeddable
-class Description {
-
-    private String desc;
-    private String longDesc;
-
-    private Description() { }
-
-    Description(String desc, String longDesc) {
-        if (desc == null) {
-            throw new IllegalStateException("Cannot have a null description");
-        }
-        if (longDesc == null) {
-            throw new IllegalStateException("Cannot have null long description");
-        }
-        this.desc = desc;
-        this.longDesc = longDesc;
-    }
-
-    String formatted() {
-        if (desc.isEmpty() || longDesc.isEmpty()) {
-            return "";
-        }
-        return desc + " *** " + longDesc;
-    }
-
-    public Description replace(char charToReplace, char replaceWith) {
-        return new Description(desc.replace(charToReplace, replaceWith), longDesc.replace(charToReplace, replaceWith));
     }
 }
 
